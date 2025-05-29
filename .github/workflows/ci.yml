@@ -1,0 +1,26 @@
+name: CI Pipeline - No Dependencies
+ 
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+ 
+jobs:
+  run-microservice:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+ 
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+ 
+    - name: Syntax check
+      run: python -m py_compile service.py
+ 
+    - name: Run microservice
+      run: python service.py
